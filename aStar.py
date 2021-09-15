@@ -1,8 +1,29 @@
 from queue import PriorityQueue
 
 
+'''
+From task description
+CLASS search-node
+• state - an object describing a state of the search process
+• g - cost of getting to this node
+• h - estimated cost to goal
+• f - estimated total cost of a solution path going through this node; f = g + h
+• status - open or closed
+• parent - pointer to best parent node
+• kids - list of all successor nodes, whether or not this node is currently their best parent.
+'''
+class Node:
+  def __init__(self, g, h, parent):
+    self.g = g
+    self.h = h
+    self.parent = parent
 
-def aStar():
+
+
+
+
+
+def aStar(start, finish):
 
   return
 
