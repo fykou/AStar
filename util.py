@@ -1,28 +1,24 @@
-def graph_from_csv(filename):
-    """Turn a CSV of child, parent, relation entries into a graph represented
-    by a dictionary, for example:
 
-    {'A': [('B', 'ab'), ('C', 'ac')],
-     'B': [('C','bc'), ('D','bd')],
-     'C': [('D','cd')],
-     'D': [('C','dc')]}
-"""
-    rows = []
-    with open(filename, 'r') as f:
-        reader = csv.reader(f)
+from enum import Enum
 
-        # Skip header row
-        next(reader, None)
+class State(Enum):
+    OPEN = 'Open'
+    CLOSED = 'Closed'
 
-        for row in reader:
-            rows.append(row)
+    
+class Node:
+    def __init__(self, status:State, pos=None, parent=None):
+        self.pos = pos #task.get_cell_value([x, y])
+        self.status = status # open, closed
+        self.parent = parent
+        self.h = 0 # heuristic cost to goal
+        self.g = 0 # cost to node
+        self.f = 0 # h + g
+    
+    def __repr__(self):
+        return f"{self.pos}"
 
+    def getPos(self):
+        return self.pos
 
-    graph = dict()
-    for row in rows:
-        child, parent, relation = row
-        if not parent in graph:
-            graph[parent] = []
-        graph[parent].append((child, relation))
-
-    return graph
+    

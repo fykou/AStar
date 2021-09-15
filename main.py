@@ -1,18 +1,33 @@
 from map import Map_Obj
 from aStar import aStar
+from util import Node
+from pprint import pprint
 
 
-
-# Testing:
 task1 = Map_Obj(1)
-task2 = Map_Obj(2)
-task3 = Map_Obj(3)
-task4 = Map_Obj(4)
-task5 = Map_Obj(5)
 
-# obj.read_map(obj, "")
-task1.show_map()
-task2.show_map()
-task3.show_map()
-task4.show_map()
-task5.show_map()
+map_int, map_str = task1.get_maps()
+
+# task1.print_map(map_int) #Prints map in terminal
+# task1.show_map() #Shows map in PIL
+
+
+startNode = Node(None, tuple(task1.get_start_pos()))
+goalNode = Node(None, tuple(task1.get_goal_pos()))
+
+colums = len(map_int)
+rows = len(map_int[0])
+
+nodes = []
+
+for i in range(colums-1):
+    for j in range(rows-1):
+        if task1.get_cell_value([i,j]) == 1:
+            nodes.append(Node(None, tuple([i, j])))
+    
+
+
+pprint(nodes)
+
+
+# print(startNode.getPos())
