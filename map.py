@@ -1,10 +1,8 @@
+from PIL import Image
+import pandas as pd
 import numpy as np
 
 np.set_printoptions(threshold=np.inf, linewidth=300)
-import time
-
-import pandas as pd
-from PIL import Image
 
 
 class Map_Obj():
@@ -26,7 +24,7 @@ class Map_Obj():
         """
         # Read map from provided csv file
         df = pd.read_csv(path, index_col=None,
-                         header=None)  #,error_bad_lines=False)
+                         header=None)  # ,error_bad_lines=False)
         # Convert pandas dataframe to numpy array
         data = df.values
         # Convert numpy array to string to make it more human readable
@@ -167,7 +165,7 @@ class Map_Obj():
                 # Move current goal position
                 move = self.pick_move()
                 self.move_goal_pos(move)
-                #print(self.goal_pos)
+                # print(self.goal_pos)
         self.tick_counter += 1
 
         return self.goal_pos
@@ -231,7 +229,8 @@ class Map_Obj():
         # Go through image and set pixel color for every position
         for y in range(height):
             for x in range(width):
-                if map[y][x] not in colors: continue
+                if map[y][x] not in colors:
+                    continue
                 for i in range(scale):
                     for j in range(scale):
                         pixels[x * scale + i,
