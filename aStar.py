@@ -13,15 +13,20 @@ def aStar(task):
     openList = PriorityQueue()
     closeList = []
 
-    openList.append(startNode)
+    openList.put(startNode)
 
-    while len(openList > 0):
+    while not openList.empty():
         currentNode = openList.get()  # TODO: prioritize Node.f
-
+        print(currentNode)
 
         # At end
         if currentNode == goalNode:
             path = []
+            current = currentNode
+            while current is not None:
+                path.append(current.pos)
+                current = current.parent
+            return path[::-1] # Return reversed path
 
 
 
