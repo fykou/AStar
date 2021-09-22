@@ -1,4 +1,5 @@
 from enum import Enum
+from queue import PriorityQueue
 
 
 class State(Enum):
@@ -16,7 +17,24 @@ class Node:
         self.f = 0  # h + g
 
     def __repr__(self):
-        return f"{self.pos}"
+        return f"Pos: {self.pos} - Dist: {self.h} "
 
     def getPos(self):
         return self.pos
+
+    #Custom Compare Function (less than or equsal)
+    def __lt__(self, other):
+        return self.f > other.f
+
+
+import heapq
+class ExtendedPriorityQueue(PriorityQueue):
+
+    def exists(self, item):
+       return len("test")
+
+
+pq = ExtendedPriorityQueue()
+x = "test"
+pq.put(1,x)
+print(pq.exists(x))

@@ -1,5 +1,6 @@
 from queue import PriorityQueue
 from util import Node
+from map import Map_Obj
 
 def aStar(task):
     # Init start node
@@ -17,7 +18,7 @@ def aStar(task):
 
     while not openList.empty():
         currentNode = openList.get()  # TODO: prioritize Node.f
-        print(currentNode)
+        closeList.append(currentNode)
 
         # At end
         if currentNode == goalNode:
@@ -28,6 +29,37 @@ def aStar(task):
                 current = current.parent
             return path[::-1] # Return reversed path
 
+        children = []
+        for movePos in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+            newPos = currentNode.pos[0] + movePos[0], currentNode.pos[1] + movePos[1]
+
+            if task.get_cell_value(newPos) == -1: # Wall
+                continue
+                
+            newNode = Node(currentNode, newPos)
+
+            children.append(newNode)
+
+            # Loop through children
+        for child in children:
+
+            # Child is on the closed list
+            #TODO: optimize
+            for closedChild in closeList:
+                if child == closedChild:
+                    continue
 
 
-    return
+            child.g = currentNode.g + 1
+            child.h = ((child.pos[0] - goalNode.pos[0]) ** 2) + ((child.pos[1] - goalNode.pos[1]) ** 2)
+            child.f = child.g + child.h
+
+            print(child)
+
+
+            # Child is already in the open list
+            if True in map(lambda x: child == x and child.g > x.g ,(elem for elem in list(openList.queue))):
+                continue
+
+
+            openList.put(child)
