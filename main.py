@@ -5,4 +5,6 @@ from aStar import aStar
 
 task = Map_Obj(1)
 
-aStar(task)
+result = aStar(task)
+
+print(result)
