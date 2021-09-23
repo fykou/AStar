@@ -3,8 +3,15 @@ from aStar import aStar
 # from pprint import pprint
 
 
-task = Map_Obj(1)
+task = Map_Obj(3)
 
-result = aStar(task)
+path = aStar(task)
 
-print(result)
+
+# for node in closed[1:-1]:
+#     task.set_cell_value((node.pos), " ! ")
+
+for pos in path[1:-1]:
+    task.set_cell_value((pos), " @ ")
+
+task.show_map()

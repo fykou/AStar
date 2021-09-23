@@ -8,9 +8,9 @@ class State(Enum):
 
 
 class Node:
-    def __init__(self, status: State, pos=None, parent=None):
+    def __init__(self, pos, parent=None):
         self.pos = pos  # task.get_cell_value([x, y])
-        self.status = status  # open, closed
+        self.status = State.OPEN  # open, closed
         self.parent = parent
         self.h = 0  # heuristic cost to goal
         self.g = 0  # cost to node

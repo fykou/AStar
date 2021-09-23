@@ -31,10 +31,12 @@ class Map_Obj():
         data_str = data.astype(str)
         # Replace numeric values with more human readable symbols
         data_str[data_str == '-1'] = ' # '
+        data_str[data_str == '0'] = ' @ '
         data_str[data_str == '1'] = ' . '
         data_str[data_str == '2'] = ' , '
         data_str[data_str == '3'] = ' : '
         data_str[data_str == '4'] = ' ; '
+        
         return data, data_str
 
     def fill_critical_positions(self, task):
@@ -219,6 +221,7 @@ class Map_Obj():
         # how the yellow path is painted)
         colors = {
             ' # ': (211, 33, 45),
+            ' @ ': (0, 0, 255),
             ' . ': (215, 215, 215),
             ' , ': (166, 166, 166),
             ' : ': (96, 96, 96),
