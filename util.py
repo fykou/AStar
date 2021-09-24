@@ -56,8 +56,8 @@ def animateAStar(map, path, closedList, start, end):
             return imgplot
 
         anim = animation.FuncAnimation(fig, CreateFrame, len(closedList)+len(path)+100, interval=20, repeat=False) # Call new frame
-        anim.save('SamfundetTraversert.gif', writer='PillowWriter') # Save animation
-        # plt.show()
+        # anim.save('SamfundetTraversert.gif', writer='PillowWriter') # Save animation
+        plt.show()
 
     arrayMap = numpy.array(map)
     animate_maze(arrayMap)

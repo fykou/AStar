@@ -3,7 +3,7 @@ from aStar import aStar
 from util import animateAStar
 
 # Init task
-tasks = ([Map_Obj(i) for i in range(4,5)])
+tasks = ([Map_Obj(i) for i in range(1,5)])
 
 for task in tasks:
     # print(task.int_map)
