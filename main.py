@@ -3,10 +3,10 @@ from aStar import aStar
 from util import animateAStar
 
 # Init task
-tasks = ([Map_Obj(i) for i in range(5,6)])
+tasks = ([Map_Obj(i) for i in range(4,5)])
 
 for task in tasks:
-    print(task.int_map)
+    # print(task.int_map)
     # Define start and end nodes
     startNode = (task.get_start_pos()[0], task.get_start_pos()[1])
     endNode = (task.get_goal_pos()[0], task.get_goal_pos()[1])
