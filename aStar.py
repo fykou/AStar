@@ -36,10 +36,12 @@ def aStar(task):
     goalNode = Node(tuple(task.get_goal_pos()))
 
     openList = PriorityQueue()
+    closedList = []
     openList.put(startNode)
 
     while not openList.empty():
         currentNode = openList.get()
+        closedList.append(currentNode.pos)
         currentNode.status = State.CLOSED
 
         # At end
@@ -50,7 +52,7 @@ def aStar(task):
             while current is not None:
                 path.append(current.pos)
                 current = current.parent
-            return path[::-1] # Return reversed path
+            return path[::-1], closedList # Return reversed path and searched nodes
 
         children = []
 
@@ -65,7 +67,7 @@ def aStar(task):
 
         for child in children:
 
-            if (child.status == State.CLOSED or True in map(lambda x: child.pos == x.pos, (elem for elem in list(openList.queue)))) and (currentNode.g + 1 > child.g) :
+            if (child.pos in closedList) or (True in map(lambda x: child.pos == x.pos, (elem for elem in list(openList.queue))) and (currentNode.g + 1 > child.g)): # correct?
                     continue
 
             child.g = currentNode.g + 1

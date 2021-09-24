@@ -3,8 +3,8 @@ from aStar import aStar
 from util import animateAStar
 
 
-task = Map_Obj(3)
+task = Map_Obj(1)
 
-path = aStar(task)
+path, closedList = aStar(task)
 
-animateAStar(task.int_map, path)
+animateAStar(task.int_map, path, closedList)

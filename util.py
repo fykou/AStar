@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from matplotlib import animation
 
 
-def animateAStar(map, path, start=None, end=None):
+def animateAStar(map, path, closedList, start=None, end=None):
     palettes = {
         'map':          numpy.array( [  [1.0, 1.0, 1.0],        # index 0 =     Not in use
                                         [1.0, 1.0, 1.0],        # index 1 =     paths       = white
@@ -12,7 +12,8 @@ def animateAStar(map, path, start=None, end=None):
                                         [0.2, 0.2, 0.2],        # index 4 =     obstacle3   = darker gray
                                         [0.0, 0.0, 0.0] ] ),    # index -1 =    walls       = black
 
-        'path':         numpy.array(    [ 0.0, 1.0, 0.5 ] ),    # Paths = green
+        'path':         numpy.array( [  [0.0, 1.0, 0.5],        # search = green
+                                        [0.0, 0.0, 1.0] ] ),    # path = blue
     }
 
     def CreateImage(array, palette_name):
@@ -25,11 +26,15 @@ def animateAStar(map, path, start=None, end=None):
         imgplot = plt.imshow(image, interpolation='nearest')
 
         def CreateFrame(frame):
-            image[path[frame]] = palettes['path']
+            print(frame)
+            if frame<len(closedList):
+                image[closedList[frame]] = palettes['path'][0]
+            else:
+                image[path[-(frame-len(closedList)+1)]] = palettes['path'][1]
             imgplot.set_data(image)
             return imgplot
 
-        anim = animation.FuncAnimation(fig, CreateFrame, len(path), interval=10)
+        anim = animation.FuncAnimation(fig, CreateFrame, len(closedList)+len(path), interval=10, repeat=False)
         # anim.save('myAnimatedMaze.mp4')
         plt.show()
 
