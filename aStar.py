@@ -3,12 +3,12 @@ from queue import PriorityQueue
 
 def aStar(task):
     class Node:
-        def __init__(self, pos, parent=None):
+        def __init__(self, pos, parent=None, cost=0):
             self.pos = pos  # task.get_cell_value([x, y])
             self.parent = parent
             self.h = 0  # heuristic cost to goal
-            self.g = 0  # cost to node
-            self.f = 0  # h + g
+            self.g = cost  # cost to node
+            self.f = self.h + self.g  # h + g
 
         def __repr__(self):
             return f"Pos: {self.pos} - Cost: {self.f} | "
@@ -47,20 +47,28 @@ def aStar(task):
             if task.get_cell_value(newPos) == -1: # Check if position is a wall
                 continue
                 
-            newNode = Node(newPos, currentNode) # Create new node on that position and add parent
+            newNode = Node(newPos, currentNode, task.get_cell_value(newPos)) # Create new node on that position and add parent
             children.append(newNode) # Add position to children
 
         for child in children:
 
-            # Check if current child is in any of the open or closed lists, or if the g value is lower than the current node's g value.
-            if (child.pos in closedList) or (True in map(lambda x: child.pos == x.pos, (elem for elem in list(openList.queue))) and (currentNode.g + 1 > child.g)): # correct?
+            # Check if current child is in the closed list.
+            if (child.pos in closedList):
                     continue
 
             # Update cost values
-            child.g = currentNode.g + 1
-            child.h = ((child.pos[0] - goalNode.pos[0]) ** 2) + ((child.pos[1] - goalNode.pos[1]) ** 2)
+            child.g = currentNode.g + child.g
+            # child.h = ((goalNode.pos[0] - child.pos[0]) ** 2 + (goalNode.pos[1] - child.pos[1] ) ** 2)**0.5 # Eucledian
+            child.h = abs(goalNode.pos[0] - child.pos[0]) + abs(goalNode.pos[1] - child.pos[1]) # Manhattan
             child.f = child.g + child.h
             child.parent = currentNode
 
+            # Check if current child is in the open lists and if the g value is lower than the current node's g value
+            if True in map(lambda openNode: child.pos == openNode.pos and child.g > openNode.g, (elem for elem in list(openList.queue))):
+                continue
+
             # Add child to open list as a node.
             openList.put(child)
+    
+    print("no path found")
+    return None
