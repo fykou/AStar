@@ -2,7 +2,6 @@ from queue import PriorityQueue
 from enum import Enum
 
 
-
 def aStar(task):
     class State(Enum):
         OPEN = 'Open'
