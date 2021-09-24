@@ -1,8 +1,35 @@
 from queue import PriorityQueue
-from util import Node, State
+from enum import Enum
+
 
 
 def aStar(task):
+    class State(Enum):
+        OPEN = 'Open'
+        CLOSED = 'Closed'
+
+
+    class Node:
+        def __init__(self, pos, parent=None):
+            self.pos = pos  # task.get_cell_value([x, y])
+            self.status = State.OPEN  # open, closed
+            self.parent = parent
+            self.h = 0  # heuristic cost to goal
+            self.g = 0  # cost to node
+            self.f = 0  # h + g
+
+        def __repr__(self):
+            return f"Pos: {self.pos} - Dist: {self.h} "
+
+        def getPos(self):
+            return self.pos
+
+        #Custom Compare Function (less than or equsal)
+        def __lt__(self, other):
+            return self.f < other.f
+
+
+
     # Init start node
     startNode = Node(tuple(task.get_start_pos()))
 

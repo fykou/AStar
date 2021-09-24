@@ -192,7 +192,7 @@ class Map_Obj():
         else:
             map[goal_pos[0]][goal_pos[1]] = ' G '
 
-    def show_map(self, map=None):
+    def image(self, map=None):
         """
         A function used to draw the map as an image and show it.
         :param map: map to use
@@ -239,4 +239,4 @@ class Map_Obj():
                         pixels[x * scale + i,
                                y * scale + j] = colors[map[y][x]]
         # Show image
-        image.show()
+        return image
